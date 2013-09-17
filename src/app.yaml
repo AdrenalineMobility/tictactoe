@@ -14,6 +14,15 @@ libraries:
 
 handlers:
 
+- url: /static/css
+  static_dir: static/css
+
+- url: /static/img
+  static_dir: static/img
+
+- url: /static/js
+  static_dir: static/js
+
 - url: /static/tictactoe
   static_dir: static/tictactoe
 
