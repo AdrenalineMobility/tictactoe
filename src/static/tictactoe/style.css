@@ -4,6 +4,12 @@
 
 #login-button {
     min-width: 100px;
+    display: inline;
+}
+
+#signup-button {
+    min-width: 100px;
+    display: inline;
 }
 
 /***************************************************************/
