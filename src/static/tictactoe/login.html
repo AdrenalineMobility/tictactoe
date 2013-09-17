@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+                                 maximum-scale=1, user-scalable=no">
+  <title>Tic Tac Toe</title>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="adrenaline.min.js"></script>
+  <script type="text/javascript" src="login.js"></script>
+  <!-- Le styles -->
+  <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="/static/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+  <link type="text/css" rel="stylesheet" href="style.css" />
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web:200' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand logo" style="font-family: 'Titillium Web', sans-serif;" href="index.html">Tic Tac Toe</a>
+        <ul class="nav pull-right">
+          <li><a href="/console">Console</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row-fluid">
+      <form class="span4 offset3 form-horizontal" id="login-form">
+        <div class="control-group">
+          <label class="control-label" for="inputEmail">Username</label>
+          <div class="controls">
+            <input type="text" id="username-input" placeholder="Username" required>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputPassword">Password</label>
+          <div class="controls">
+            <input type="password" id="password-input" placeholder="Password" required>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox">
+              <input type="checkbox"> Remember me
+            </label>
+            <button type="submit" class="btn" id="login-button">Sign in</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

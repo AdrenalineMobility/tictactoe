@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+                                 maximum-scale=1, user-scalable=no">
+  <title>Tic Tac Toe</title>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type= "text/javascript" src="adrenaline.min.js"></script>
+  <!-- Le styles -->
+  <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="/static/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+  <link type="text/css" rel="stylesheet" href="style.css" />
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web:200' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand logo" style="font-family: 'Titillium Web', sans-serif;" href="index.html">Tic Tac Toe</a>
+        <ul class="nav pull-right">
+          <li><a href="/console">Console</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div id="invite-box" class="text-center">
+      <div class="text-center">
+        <p id="msg"></p>
+      </div>
+      <div class="input-append">
+        <input id="friend-input" type="text" placeholder="Invite a friend">
+        <button id="invite-button" class="btn" type="button">Play!</button>
+      </div>
+    </div>
+
+    <div id="game-box" class="game-off">
+      <div class="cell" id="cell0"><div></div></div>
+      <div class="cell" id="cell1"><div></div></div>
+      <div class="cell" id="cell2"><div></div></div>
+      <div class="cell" id="cell3"><div></div></div>
+      <div class="cell" id="cell4"><div></div></div>
+      <div class="cell" id="cell5"><div></div></div>
+      <div class="cell" id="cell6"><div></div></div>
+      <div class="cell" id="cell7"><div></div></div>
+      <div class="cell" id="cell8"><div></div></div>
+    </div>
+  </div>
+  <script src="tictactoe.js"></script>
+  <script src="minimodel.js"></script>
+</body>
+</html>

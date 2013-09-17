@@ -1,0 +1,132 @@
+#login-form {
+    margin-top: 25px;
+}
+
+#login-button {
+    min-width: 100px;
+}
+
+/***************************************************************/
+#game-box {
+    position: absolute;
+    width: 50%;
+    height: 0;
+    padding-bottom: 50%;
+    top: 75px;
+    left: 25%;
+    background-color: #f8f8f8;
+}
+
+/*
+.game-off {
+    opacity: .3;
+}
+*/
+
+.cell {
+    position: absolute;
+    width: 33.3%;
+    height: 33.3%;
+    border: 1px solid grey;
+}
+
+#cell0 {top: 0; left: 0;}
+#cell1 {top: 0; left: 33.3%;}
+#cell2 {top: 0; left: 66.6%;}
+#cell3 {top: 33.3%; left: 0;}
+#cell4 {top: 33.3%; left: 33.3%;}
+#cell5 {top: 33.3%; left: 66.6%;}
+#cell6 {top: 66.6%; left: 0;}
+#cell7 {top: 66.6%; left: 33.3%;}
+#cell8 {top: 66.6%; left: 66.6%;}
+
+#invite-box {
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    padding-top: 50%;
+    margin-top: 50px;
+}
+
+#friend-input {
+    width: 60%;
+}
+
+
+@media (max-width: 480px) {
+    #game-box {
+        position: absolute;
+        width: 80%;
+        height: 0;
+        padding-bottom: 80%;
+        top: 75px;
+        left: 10%;
+        background-color: #f8f8f8;
+    }
+
+    #invite-box {
+        position: absolute;
+        width: 80%;
+        left: 10%;
+        padding-top: 80%;
+        margin-top: 50px;
+    }
+
+}
+
+.X, .O {
+    width: 33.3%;
+    height: 33.3%;
+}
+
+.O:before {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background: red;
+    top: 5%;
+    left: 5%;
+    border: 100% solid red;
+    border-radius: 100%;
+}
+
+.O:after {
+    content: "";
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+    background: white;
+    position: absolute;
+    border: 100% solid white;
+    border-radius: 100%;
+}
+
+.X:before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 10%;
+    background: darkblue;
+    left: 45%;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.X:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 10%;
+    background: darkblue;
+    left: 45%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}

@@ -1,0 +1,21 @@
+application: adrenalineopensource
+version: develop
+runtime: python27
+api_version: 1
+threadsafe: true
+
+
+libraries:
+- name: jinja2
+  version: latest
+
+- name: markupsafe
+  version: latest
+
+handlers:
+
+- url: /static/tictactoe
+  static_dir: static/tictactoe
+
+builtins:
+- deferred: on
