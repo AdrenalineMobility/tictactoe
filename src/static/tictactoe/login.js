@@ -6,7 +6,7 @@ $(document).ready(function() {
 
         localStorage.clear();
         adrenaline.user.logIn(username, passwd).done(function() {
-            console.log("logged in: " + err);
+            console.log("logged in.");
             adrenaline.user.saveCurrentUserToDisk();
             window.location.href = "tictactoe.html";
         }).fail(function(err) {
