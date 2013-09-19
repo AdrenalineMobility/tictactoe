@@ -4,9 +4,6 @@ $(document).ready(function() {
     var board;
     var connected = false;
 
-    $("#logout").text("Sign out (" + adrenaline.user.currentUser().userId + ")");
-
-
     $("#invite-button").click(function() {
         event.preventDefault();
         if (connected) {

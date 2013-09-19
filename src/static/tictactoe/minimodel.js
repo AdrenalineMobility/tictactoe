@@ -75,6 +75,8 @@
             return;
         }
 
+        $("#logout").text("Sign out (" + adrenaline.user.currentUser().userId + ")");
+
         /********** Application specific message handlers ***********/
         var chan = adrenaline.user.currentUser().getCommsChannel();
 
