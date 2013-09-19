@@ -13,12 +13,22 @@
 }
 
 /***************************************************************/
+.main {
+    position: absolute;
+    position:absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    max-width: 900px;
+}
+
 #game-box {
     position: absolute;
     width: 50%;
     height: 0;
     padding-bottom: 50%;
-    top: 100px;
+    top: 50px;
     left: 25%;
     background-color: #f8f8f8;
 }
@@ -72,7 +82,7 @@
         width: 80%;
         height: 0;
         padding-bottom: 80%;
-        top: 100px;
+        top: 50px;
         left: 10%;
         background-color: #f8f8f8;
     }
