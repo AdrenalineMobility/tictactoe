@@ -2,22 +2,39 @@ $(document).ready(function() {
     var myMark;
     var isMyMove;
     var board;
+    var connected = false;
+
+    $("#logout").text("Sign out (" + adrenaline.user.currentUser().userId + ")");
+
 
     $("#invite-button").click(function() {
+        event.preventDefault();
+        if (connected) {
+            window.location.reload();
+            return;
+        }
+
         var friendId = $("#friend-input").val();
         if (friendId !== "") {
             $("#friend-input").prop("disabled", true);
             $("#invite-button").prop("disabled", true);
-            $("#invite-button").text("Connecting...");
+            $("#invite-button").val("Connecting ...");
             sendInviteForNewGame(friendId).fail(function(err) {
                 $("#msg").text("could not send invite " + err);
                 $("#friend-input").prop("disabled", false);
                 $("#invite-button").prop("disabled", false);
-                $("#invite-button").text("Play!");
+                $("#invite-button").val("Play!");
             }).done(function() {
-                $("#invite-button").text("Connected!");
             });
         }
+    });
+
+    $("#logout").click(function(event) {
+        event.preventDefault();
+        adrenaline.user.currentUser().logOut().done(function() {
+            window.location.href = "login.html";
+        });
+        return false;
     });
 
     $(".cell").click(function() {
@@ -26,16 +43,21 @@ $(document).ready(function() {
     });
 
     addGameStateHandler(function(myMark, isMyMove, boardState, opponent) {
+        connected = true;
+        $("#status").show();
         $("#friend-input").prop("disabled", true);
+        $("#opponent").text(opponent);
         $("#friend-input").val(opponent);
-        $("#friend-input").prop("disabled", true);
-        $("#invite-button").prop("disabled", true);
-        $("#invite-button").text("Connected!");
+        $("#invite-button").prop("disabled", false);
+        $("#invite-button").val("Disconnect!");
+
 
         if (isMyMove) {
-            $("#msg").text("Make your move");
+            $(".arrow-left").show();
+            $(".arrow-right").hide();
         } else {
-            $("#msg").text("Waiting for " + opponent + " to move");
+            $(".arrow-right").show();
+            $(".arrow-left").hide();
         }
 
         for (var cell in boardState) {

@@ -18,22 +18,29 @@
   <div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand logo" style="font-family: 'Titillium Web', sans-serif;" href="index.html">Tic Tac Toe</a>
+        <a class="brand logo" style="font-family: 'Titillium Web', sans-serif;" href="#">Tic Tac Toe</a>
         <ul class="nav pull-right">
-          <li><a href="/console">Console</a></li>
+          <li><a href="#" id="logout"></a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="container">
+    <div id="status" style="display:none">
+      <span>You</span><span class="arrow-left" style="display:none"></span>
+      <span id="opponent" class="pull-right"></span>
+      <span class="arrow-right pull-right" style="display:none"></span>
+    </div>
     <div id="invite-box" class="text-center">
       <div class="text-center">
         <p id="msg"></p>
       </div>
-      <div class="input-append">
-        <input id="friend-input" type="text" placeholder="Invite a friend">
-        <button id="invite-button" class="btn" type="button">Play!</button>
-      </div>
+      <form>
+        <div class="input-append">
+          <input id="friend-input" type="text" placeholder="Invite a friend">
+          <input type="submit" id="invite-button" class="btn" type="button" value="Play!">
+        </div>
+      <form>
     </div>
 
     <div id="game-box" class="game-off">

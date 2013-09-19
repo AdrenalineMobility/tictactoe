@@ -18,7 +18,7 @@
     width: 50%;
     height: 0;
     padding-bottom: 50%;
-    top: 75px;
+    top: 100px;
     left: 25%;
     background-color: #f8f8f8;
 }
@@ -46,12 +46,19 @@
 #cell7 {top: 66.6%; left: 33.3%;}
 #cell8 {top: 66.6%; left: 66.6%;}
 
+#status {
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    margin-top: 20px;
+}
+
 #invite-box {
     position: absolute;
     width: 50%;
     left: 25%;
     padding-top: 50%;
-    margin-top: 50px;
+    margin-top: 75px;
 }
 
 #friend-input {
@@ -65,9 +72,16 @@
         width: 80%;
         height: 0;
         padding-bottom: 80%;
-        top: 75px;
+        top: 100px;
         left: 10%;
         background-color: #f8f8f8;
+    }
+
+    #status {
+        position: absolute;
+        width: 80%;
+        left: 10%;
+        margin-top: 20px;
     }
 
     #invite-box {
@@ -75,7 +89,7 @@
         width: 80%;
         left: 10%;
         padding-top: 80%;
-        margin-top: 50px;
+        margin-top: 75px;
     }
 
 }
@@ -135,4 +149,34 @@
     -ms-transform: rotate(-45deg);
     -o-transform: rotate(-45deg);
     transform: rotate(-45deg);
+}
+
+.arrow-left,
+.arrow-right {
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0.53em;
+    display: -moz-inline-box;
+    display: inline-block;
+    /* Use font-size to control the size of the arrow. */
+    font-size: 1.4em;
+    height: 0;
+    line-height: 0;
+    position: relative;
+    vertical-align: middle;
+    width: 0;
+}
+
+.arrow-right {
+    border-left-width: 1em;
+    border-left-style: solid;
+    border-left-color: #666;
+    left: 0.25em;
+}
+
+.arrow-left {
+    border-right-width: 1em;
+    border-right-style: solid;
+    border-right-color: #666;
+    right: 0.25em;
 }
