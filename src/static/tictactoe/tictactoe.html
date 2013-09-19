@@ -18,34 +18,43 @@
   <div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand logo" style="font-family: 'Titillium Web', sans-serif;" href="index.html">Tic Tac Toe</a>
+        <a class="brand logo" style="font-family: 'Titillium Web', sans-serif;" href="#">Tic Tac Toe</a>
         <ul class="nav pull-right">
-          <li><a href="/console">Console</a></li>
+          <li><a href="#" id="logout"></a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="container">
-    <div id="invite-box" class="text-center">
-      <div class="text-center">
-        <p id="msg"></p>
+    <div class="main">
+      <div id="status" style="display:none">
+        <span>You</span><span class="arrow-left" style="display:none"></span>
+        <span id="opponent" class="pull-right"></span>
+        <span class="arrow-right pull-right" style="display:none"></span>
       </div>
-      <div class="input-append">
-        <input id="friend-input" type="text" placeholder="Invite a friend">
-        <button id="invite-button" class="btn" type="button">Play!</button>
+      <div id="invite-box" class="text-center">
+        <div class="text-center">
+          <p id="msg"></p>
+        </div>
+        <form>
+          <div class="input-append">
+            <input id="friend-input" type="text" placeholder="Invite a friend">
+            <input type="submit" id="invite-button" class="btn" type="button" value="Play!">
+          </div>
+          <form>
       </div>
-    </div>
 
-    <div id="game-box" class="game-off">
-      <div class="cell" id="cell0"><div></div></div>
-      <div class="cell" id="cell1"><div></div></div>
-      <div class="cell" id="cell2"><div></div></div>
-      <div class="cell" id="cell3"><div></div></div>
-      <div class="cell" id="cell4"><div></div></div>
-      <div class="cell" id="cell5"><div></div></div>
-      <div class="cell" id="cell6"><div></div></div>
-      <div class="cell" id="cell7"><div></div></div>
-      <div class="cell" id="cell8"><div></div></div>
+      <div id="game-box" class="game-off">
+        <div class="cell" id="cell0"><div></div></div>
+        <div class="cell" id="cell1"><div></div></div>
+        <div class="cell" id="cell2"><div></div></div>
+        <div class="cell" id="cell3"><div></div></div>
+        <div class="cell" id="cell4"><div></div></div>
+        <div class="cell" id="cell5"><div></div></div>
+        <div class="cell" id="cell6"><div></div></div>
+        <div class="cell" id="cell7"><div></div></div>
+        <div class="cell" id="cell8"><div></div></div>
+      </div>
     </div>
   </div>
   <script src="tictactoe.js"></script>
