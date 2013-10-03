@@ -28,6 +28,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.android.tictactoe.R;
 import com.example.android.tictactoe.library.GameView.ICellListener;
 import com.example.android.tictactoe.library.GameView.State;
 

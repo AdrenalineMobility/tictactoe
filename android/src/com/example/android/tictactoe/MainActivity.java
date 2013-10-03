@@ -16,35 +16,77 @@
 
 package com.example.android.tictactoe;
 
+import java.util.Random;
+
+import io.adrenaline.AdrenalineIo;
+import io.adrenaline.ApiResponse;
+import io.adrenaline.User;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.android.tictactoe.library.GameActivity;
 import com.example.android.tictactoe.library.GameView.State;
 
 public class MainActivity extends Activity {
+	TextView status;
+	class SignUp extends AsyncTask<String, Object, ApiResponse> {
+
+		@Override
+		protected ApiResponse doInBackground(String... arg0) {
+			ApiResponse response = User.signUp(arg0[0], arg0[1]);
+			return response;
+		}
+		
+		@Override
+		protected void onPostExecute(ApiResponse response) {
+			findViewById(R.id.button1).setEnabled(true);
+			if (!response.returnStatusOk) {
+            	status.setText("could not sign up: " + response.returnStatus);
+            } else {
+            	startGame(true);
+            }
+		}
+		
+	}
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
-        findViewById(R.id.start_player).setOnClickListener(
+        
+        AdrenalineIo.APP_ID = "1015fd078bb8dd285d96e38160e6e884ea21d563";
+        AdrenalineIo.APP_TOKEN = "ewSZ8Dil4zxmjknc_nb00-sK0hC5JaGK";
+        AdrenalineIo.BASE_URL = "https://adrenaline-io.appspot.com/";
+        AdrenalineIo.init();
+        
+        status = (TextView) findViewById(R.id.status_string);
+        findViewById(R.id.button1).setOnClickListener(
                 new OnClickListener() {
             public void onClick(View v) {
-                startGame(true);
+                status.setText("Signing up...");
+                String username = "android-" + new Random().nextInt();
+                String password = "woof";
+                v.setEnabled(false);
+                new SignUp().execute(username, password);
             }
         });
 
+        /*
         findViewById(R.id.start_comp).setOnClickListener(
                 new OnClickListener() {
             public void onClick(View v) {
                 startGame(false);
             }
         });
+        */
     }
 
     private void startGame(boolean startWithHuman) {

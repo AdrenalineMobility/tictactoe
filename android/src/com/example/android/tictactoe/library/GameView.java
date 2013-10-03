@@ -18,6 +18,8 @@ package com.example.android.tictactoe.library;
 
 import java.util.Random;
 
+import com.example.android.tictactoe.R;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;

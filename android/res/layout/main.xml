@@ -14,15 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    >
+    android:gravity="center_horizontal|left"
+    android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/status_string"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -30,40 +29,18 @@
         android:layout_marginBottom="5dip"
         android:text="@string/welcome"
         />
-    <TextView
-        android:layout_width="fill_parent"
+    
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="5dip"
-        android:text="@string/explain2"
-        />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="20dip"
-        android:text="@string/explain1"
-        />
+        android:orientation="horizontal" >
+        
+    </LinearLayout>
 
     <Button
-        android:id="@+id/start_player"
-        android:text="@string/start_player"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
-    <Button
-        android:id="@+id/start_comp"
-        android:text="@string/start_comp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip"
-        />
-
-    <ImageView
-        android:id="@+id/ImageView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon"
-        />
+        android:text="Start game against bob.king" />
 
 </LinearLayout>
