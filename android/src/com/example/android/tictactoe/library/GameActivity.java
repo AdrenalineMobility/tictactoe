@@ -21,16 +21,11 @@ import io.adrenaline.Channel;
 import io.adrenaline.Comms;
 import io.adrenaline.UserObject;
 
-import java.util.Random;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Handler.Callback;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,11 +42,11 @@ public class GameActivity extends Activity {
     public static final String EXTRA_START_PLAYER =
         "com.example.android.tictactoe.library.GameActivity.EXTRA_START_PLAYER";
 
-    private static final int MSG_COMPUTER_TURN = 1;
-    private static final long COMPUTER_DELAY_MS = 500;
+    //private static final int MSG_COMPUTER_TURN = 1;
+    //private static final long COMPUTER_DELAY_MS = 500;
 
     //private Handler mHandler = new Handler(new MyHandlerCallback());
-    private Random mRnd = new Random();
+    //private Random mRnd = new Random();
     private GameView mGameView;
     private TextView mInfoView;
     private Button mButtonNext;
@@ -105,7 +100,18 @@ public class GameActivity extends Activity {
         chan.addHandler("move", new Comms.MessageHandler() {
 			@Override
 			public boolean onMessage(JSONObject arg0) {
-				mInfoView.setText("move!");
+				JSONObject cells = arg0.optJSONObject("board");
+				for (int idx = 0; idx < 9; idx++) {
+					String cell = cells.optString("cell" + idx);
+					if (cell.equals("X")) {
+						mGameView.setCell(idx,  State.PLAYER1);
+					} else if (cell.equals("O")) {
+						mGameView.setCell(idx,  State.PLAYER2);
+					} else {
+						mGameView.setCell(idx, State.EMPTY);
+					}
+				}
+				finishTurn();
 				return false;
 			}
 		});
@@ -195,63 +201,41 @@ public class GameActivity extends Activity {
         }
     }
 
-    /*
-    private class MyHandlerCallback implements Callback {
-        public boolean handleMessage(Message msg) {
-            if (msg.what == MSG_COMPUTER_TURN) {
-
-                // Pick a non-used cell at random. That's about all the AI you need for this game.
-                State[] data = mGameView.getData();
-                int used = 0;
-                while (used != 0x1F) {
-                    int index = mRnd.nextInt(9);
-                    if (((used >> index) & 1) == 0) {
-                        used |= 1 << index;
-                        if (data[index] == State.EMPTY) {
-                            mGameView.setCell(index, mGameView.getCurrentPlayer());
-                            break;
-                        }
-                    }
-                }
-
-                finishTurn();
-                return true;
-            }
-            return false;
-        }
-    }
-    */
-
     private State getOtherPlayer(State player) {
         return player == State.PLAYER1 ? State.PLAYER2 : State.PLAYER1;
     }
 
+    private void sendMove() {
+    	State[] data = mGameView.getData();
+    	JSONObject boardJSON = new JSONObject();
+    	try {
+    		for (int idx = 0; idx < 9; idx++) {
+    			if (data[idx] == State.EMPTY) {
+    				boardJSON.put("cell" + idx, null);
+    			} else if (data[idx] == State.PLAYER1) {
+    				boardJSON.put("cell" + idx, "X");
+    			} else {	
+    				boardJSON.put("cell" + idx, "O");
+    			}
+    		}
+    
+    		JSONObject boardData = new JSONObject();
+    		boardData.put("board", boardJSON);
+    		
+    		mOpponent.sendMessage("move", boardData);    
+    	} catch (Exception e) {
+    		
+    	}
+    }
+    
     private void finishTurn() {
         State player = mGameView.getCurrentPlayer();
+        if (player == State.PLAYER1) {
+        	sendMove();
+        }
+        	
         if (!checkGameFinished(player)) {
             player = selectTurn(getOtherPlayer(player));
-            if (player == State.PLAYER2) {
-                //mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
-            	State[] data = mGameView.getData();
-            	JSONObject boardJSON = new JSONObject();
-            	try {
-            		for (int idx = 0; idx < 9; idx++) {
-            			if (data[idx] == State.EMPTY) {
-            				boardJSON.put("cell" + idx, null);
-            			} else if (data[idx] == State.PLAYER1) {
-            				boardJSON.put("cell" + idx, "X");
-            			} else {	
-            				boardJSON.put("cell" + idx, "O");
-            			}
-            		}
-            		JSONObject boardData = new JSONObject();
-            		boardData.put("board", boardJSON);
-            		
-            		mOpponent.sendMessage("move", boardData);
-            	} catch (JSONException e) {
-            			// shouldn't happen, swallow
-            	}
-            }
         }
     }
 
