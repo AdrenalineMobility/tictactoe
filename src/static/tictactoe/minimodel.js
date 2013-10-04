@@ -38,7 +38,7 @@
             return;
         }
 
-        if (board[cellId] !== null) {
+        if (board[cellId] != null) {
             console.log("cell occupied, ignoring click");
             return;
         }

@@ -16,7 +16,15 @@
 
 package com.example.android.tictactoe.library;
 
+import io.adrenaline.User;
+import io.adrenaline.Channel;
+import io.adrenaline.Comms;
+import io.adrenaline.UserObject;
+
 import java.util.Random;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -42,12 +50,15 @@ public class GameActivity extends Activity {
     private static final int MSG_COMPUTER_TURN = 1;
     private static final long COMPUTER_DELAY_MS = 500;
 
-    private Handler mHandler = new Handler(new MyHandlerCallback());
+    //private Handler mHandler = new Handler(new MyHandlerCallback());
     private Random mRnd = new Random();
     private GameView mGameView;
     private TextView mInfoView;
     private Button mButtonNext;
-
+    
+    private boolean mIsGameAccepted = false;
+    private UserObject mOpponent;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle bundle) {
@@ -80,6 +91,41 @@ public class GameActivity extends Activity {
         mGameView.setCellListener(new MyCellListener());
 
         mButtonNext.setOnClickListener(new MyButtonListener());
+        
+        Channel chan = User.getCurrentUser().getChannel();
+        chan.addHandler("newGameAccepted", new Comms.MessageHandler() {
+			@Override
+			public boolean onMessage(JSONObject arg0) {
+				mIsGameAccepted = true;
+				mInfoView.setText("Invite accepted, starting game");
+				selectTurn(State.PLAYER1);
+				return false;
+			}
+		});
+        chan.addHandler("move", new Comms.MessageHandler() {
+			@Override
+			public boolean onMessage(JSONObject arg0) {
+				mInfoView.setText("move!");
+				return false;
+			}
+		});
+        chan.beginPolling();
+        
+        new Thread(new Runnable() {
+			@Override
+			public void run() {
+	        	mOpponent = User.getUser("bob.king");
+	        	JSONObject msg = new JSONObject();
+	        	try {
+					msg.put("opponent", User.getCurrentUser().getUserId());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        	mOpponent.sendMessage("newGame", msg);				
+			}
+        	
+        }).start();
     }
 
     @Override
@@ -94,7 +140,7 @@ public class GameActivity extends Activity {
             }
         }
         if (player == State.PLAYER2) {
-            mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
+            //mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
         }
         if (player == State.WIN) {
             setWinState(mGameView.getWinner());
@@ -106,7 +152,10 @@ public class GameActivity extends Activity {
         mGameView.setCurrentPlayer(player);
         mButtonNext.setEnabled(false);
 
-        if (player == State.PLAYER1) {
+        if (!mIsGameAccepted) {
+        	mInfoView.setText("Invited bob.king, waiting for reply...");
+        	mGameView.setEnabled(false);
+        } else if (player == State.PLAYER1) {
             mInfoView.setText(R.string.player1_turn);
             mGameView.setEnabled(true);
 
@@ -146,6 +195,7 @@ public class GameActivity extends Activity {
         }
     }
 
+    /*
     private class MyHandlerCallback implements Callback {
         public boolean handleMessage(Message msg) {
             if (msg.what == MSG_COMPUTER_TURN) {
@@ -170,6 +220,7 @@ public class GameActivity extends Activity {
             return false;
         }
     }
+    */
 
     private State getOtherPlayer(State player) {
         return player == State.PLAYER1 ? State.PLAYER2 : State.PLAYER1;
@@ -180,7 +231,26 @@ public class GameActivity extends Activity {
         if (!checkGameFinished(player)) {
             player = selectTurn(getOtherPlayer(player));
             if (player == State.PLAYER2) {
-                mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
+                //mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
+            	State[] data = mGameView.getData();
+            	JSONObject boardJSON = new JSONObject();
+            	try {
+            		for (int idx = 0; idx < 9; idx++) {
+            			if (data[idx] == State.EMPTY) {
+            				boardJSON.put("cell" + idx, null);
+            			} else if (data[idx] == State.PLAYER1) {
+            				boardJSON.put("cell" + idx, "X");
+            			} else {	
+            				boardJSON.put("cell" + idx, "O");
+            			}
+            		}
+            		JSONObject boardData = new JSONObject();
+            		boardData.put("board", boardJSON);
+            		
+            		mOpponent.sendMessage("move", boardData);
+            	} catch (JSONException e) {
+            			// shouldn't happen, swallow
+            	}
             }
         }
     }
