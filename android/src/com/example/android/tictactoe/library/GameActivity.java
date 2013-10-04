@@ -42,11 +42,6 @@ public class GameActivity extends Activity {
     public static final String EXTRA_START_PLAYER =
         "com.example.android.tictactoe.library.GameActivity.EXTRA_START_PLAYER";
 
-    //private static final int MSG_COMPUTER_TURN = 1;
-    //private static final long COMPUTER_DELAY_MS = 500;
-
-    //private Handler mHandler = new Handler(new MyHandlerCallback());
-    //private Random mRnd = new Random();
     private GameView mGameView;
     private TextView mInfoView;
     private Button mButtonNext;
@@ -145,9 +140,7 @@ public class GameActivity extends Activity {
                 selectTurn(player);
             }
         }
-        if (player == State.PLAYER2) {
-            //mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
-        }
+       
         if (player == State.WIN) {
             setWinState(mGameView.getWinner());
         }
