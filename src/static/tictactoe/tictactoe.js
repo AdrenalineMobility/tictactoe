@@ -5,10 +5,11 @@ $(document).ready(function() {
     var connected = false;
 
     $("#invite-button").click(function() {
+        console.log("invite clicked");
         event.preventDefault();
         if (connected) {
-            window.location.reload();
-            return;
+            //window.location.reload();
+            //return;
         }
 
         var friendId = $("#friend-input").val();

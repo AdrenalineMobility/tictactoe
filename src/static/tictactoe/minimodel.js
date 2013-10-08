@@ -78,41 +78,43 @@
         $("#logout").text("Sign out (" + adrenaline.user.currentUser().userId + ")");
 
         /********** Application specific message handlers ***********/
-        var chan = adrenaline.user.currentUser().getCommsChannel();
-
         // XXX FIXME check game states on handlers
 
         // another user has requested a new game, reply with a
         // "newGameAccepted" message to start a game
-        chan.addHandler("newGame", function(data) {
-            opponent = adrenaline.user.getUser(data.msg_data.opponent);
-            opponent.sendMessage("newGameAccepted", "Yeah!").done(function() {
-                console.log("starting game");
-                gameState = PLAYING_GAME;
-                myMark = "O";
-                isMyMove = false;
-                triggerGameUpdate();
-            }).fail(function(err) {
-                console.log("failed sending newGameAccepted message back " + err);
-            });
+        adrenaline.user.currentUser().getCommsChannel('newGame')
+            .addHandler(function(data) {
+                opponent = adrenaline.user.getUser(data.msg_data.opponent);
+                opponent.sendMessage("newGameAccepted", "Yeah!").done(function() {
+                    console.log("starting game");
+                    gameState = PLAYING_GAME;
+                    myMark = "O";
+                    isMyMove = false;
+                    triggerGameUpdate();
+                }).fail(function(err) {
+                    console.log("failed sending newGameAccepted message back " + err);
+                });
         });
 
         // The other user accepted our new game, let the user know
         // that they can move
-        chan.addHandler("newGameAccepted", function() {
-            gameState = PLAYING_GAME;
-            triggerGameUpdate();
-            console.log("new game accepted");
+        adrenaline.user.currentUser().getCommsChannel('newGameAccepted')
+            .addHandler(function() {
+                gameState = PLAYING_GAME;
+                triggerGameUpdate();
+                console.log("new game accepted");
+            });
+
+        adrenaline.user.currentUser().getCommsChannel('move')
+            .addHandler(function(data) {
+                console.log("got move: " + JSON.stringify(data));
+                board = data.msg_data.board;
+                isMyMove = true;
+                triggerGameUpdate();
         });
 
-        chan.addHandler("move", function(data) {
-            console.log("got move: " + JSON.stringify(data));
-            board = data.msg_data.board;
-            isMyMove = true;
-            triggerGameUpdate();
-        });
+        adrenaline.comms.connect();
 
-        chan.beginPolling(2500);
         /************************************************************/
 
     });

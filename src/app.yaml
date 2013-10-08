@@ -1,4 +1,4 @@
-application: adrenalineopensource
+application: dopemurph
 version: develop
 runtime: python27
 api_version: 1
