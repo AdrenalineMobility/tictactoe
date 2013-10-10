@@ -4,7 +4,7 @@ $(document).ready(function() {
     var board;
     var connected = false;
 
-    $("#invite-button").click(function() {
+    $("#invite-button").click(function(event) {
         console.log("invite clicked");
         event.preventDefault();
         if (connected) {
