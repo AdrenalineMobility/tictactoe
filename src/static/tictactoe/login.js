@@ -11,14 +11,12 @@ $(document).ready(function() {
         var remember = $("#remember").is(':checked');
 
         $(".loading").show();
-        adrenaline.comms.connect().done(function() {
-            adrenaline.user.logIn(username, passwd).done(function() {
-                adrenaline.user.saveCurrentUserToDisk();
-                window.location.href = "tictactoe.html";
-            }).fail(function(err) {
-                console.log("could not login: " + err);
-                $(".loading").hide();
-            });
+        adrenaline.user.logIn(username, passwd).done(function() {
+            adrenaline.user.saveCurrentUserToDisk();
+            window.location.href = "tictactoe.html";
+        }).fail(function(err) {
+            console.log("could not login: " + err);
+            $(".loading").hide();
         });
         return false;
     });
@@ -36,14 +34,12 @@ $(document).ready(function() {
         var remember = $("#remember").is(':checked');
 
         $(".loading").show();
-        adrenaline.comms.connect().done(function() {
-            adrenaline.user.signUp(username, passwd).done(function() {
-                adrenaline.user.saveCurrentUserToDisk();
-                window.location.href = "tictactoe.html";
-            }).fail(function(err) {
-                $(".loading").hide();
-                console.log("could not sign up: " + err);
-            });
+        adrenaline.user.signUp(username, passwd).done(function() {
+            adrenaline.user.saveCurrentUserToDisk();
+            window.location.href = "tictactoe.html";
+        }).fail(function(err) {
+            $(".loading").hide();
+            console.log("could not sign up: " + err);
         });
         return false;
     });
